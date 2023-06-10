@@ -7,20 +7,24 @@ services:
     build:
       context: frontend
       dockerfile: Dockerfile
+      network: host
     container_name: web
     restart: always
-    ports:
-      - 3000:3000
+    #ports:
+    # - 3000:3000
+    network_mode: host
   backend:
     env_file:
       - ./backend/.env
     build:
       context: backend
       dockerfile: Dockerfile
+      network: host 
     container_name: backend
     restart: always
     volumes:
       - ./backend/:/code/
       - ~/.config/gcloud:/root/.config/gcloud
-    ports:
-      - 5050:5050
+    #ports:
+    # - 5050:5050
+    network_mode: host

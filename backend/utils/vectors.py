@@ -14,10 +14,11 @@ logger = get_logger(__name__)
 
 
 openai_api_key = os.environ.get("OPENAI_API_KEY")
+openai_api_base = os.environ.get("OPENAI_API_BASE")
 anthropic_api_key = os.environ.get("ANTHROPIC_API_KEY")
 supabase_url = os.environ.get("SUPABASE_URL")
 supabase_key = os.environ.get("SUPABASE_SERVICE_KEY")
-embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, openai_api_base=openai_api_base)
 supabase_client: Client = create_client(supabase_url, supabase_key)
 documents_vector_store = SupabaseVectorStore(
     supabase_client, embeddings, table_name="vectors")

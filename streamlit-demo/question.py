@@ -11,6 +11,7 @@ from stats import add_usage
 memory = ConversationBufferMemory(
     memory_key="chat_history", return_messages=True)
 openai_api_key = st.secrets.openai_api_key
+openai_api_base = st.secrets.openai_api_base
 anthropic_api_key = st.secrets.anthropic_api_key
 logger = get_logger(__name__)
 
@@ -54,7 +55,7 @@ def chat_with_doc(model, vector_store: SupabaseVectorStore, stats_db):
                 logger.info('Using OpenAI model %s', model)
                 qa = ConversationalRetrievalChain.from_llm(
                     OpenAI(
-                        model_name=st.session_state['model'], openai_api_key=openai_api_key, temperature=st.session_state['temperature'], max_tokens=st.session_state['max_tokens']), vector_store.as_retriever(), memory=memory, verbose=True)
+                        model_name=st.session_state['model'], openai_api_key=openai_api_key, openai_api_base=openai_api_base, temperature=st.session_state['temperature'], max_tokens=st.session_state['max_tokens']), vector_store.as_retriever(), memory=memory, verbose=True)
             elif anthropic_api_key and model.startswith("claude"):
                 logger.info('Using Anthropics model %s', model)
                 qa = ConversationalRetrievalChain.from_llm(

@@ -8,7 +8,9 @@ from logger import get_logger
 logger = get_logger(__name__)
 
 openai_api_key = os.environ.get("OPENAI_API_KEY")
+openai_api_base = os.environ.get("OPENAI_API_BASE")
 openai.api_key = openai_api_key
+openai.api_base = openai_api_base
 summary_llm = guidance.llms.OpenAI('gpt-3.5-turbo', caching=False)
 
 

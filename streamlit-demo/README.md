@@ -89,6 +89,7 @@ cp .streamlit/secrets.toml.example .streamlit/secrets.toml
 supabase_url = "SUPABASE_URL"
 supabase_service_key = "SUPABASE_SERVICE_KEY"
 openai_api_key = "OPENAI_API_KEY"
+openai_api_base = "https://api.openai.com/v1"
 anthropic_api_key = "ANTHROPIC_API_KEY" # Optional
 ```
 

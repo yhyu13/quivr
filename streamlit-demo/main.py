@@ -15,11 +15,12 @@ from stats import get_usage_today
 supabase_url = st.secrets.supabase_url
 supabase_key = st.secrets.supabase_service_key
 openai_api_key = st.secrets.openai_api_key
+openai_api_base = st.secrets.openai_api_base
 anthropic_api_key = st.secrets.anthropic_api_key
 supabase: Client = create_client(supabase_url, supabase_key)
 self_hosted = st.secrets.self_hosted
 
-embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key)
+embeddings = OpenAIEmbeddings(openai_api_key=openai_api_key, openai_api_base=openai_api_base)
 vector_store = SupabaseVectorStore(
     supabase, embeddings, table_name="documents")
 models = ["gpt-3.5-turbo", "gpt-4"]

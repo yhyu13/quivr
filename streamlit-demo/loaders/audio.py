@@ -14,8 +14,9 @@ from stats import add_usage
 
 
 # Create a function to transcribe audio using Whisper
-def _transcribe_audio(api_key, audio_file, stats_db):
+def _transcribe_audio(api_key, audio_file, stats_db, api_base):
     openai.api_key = api_key
+    openai.api_base = api_base
     transcript = ""
     
     with BytesIO(audio_file.read()) as audio_bytes:
@@ -44,7 +45,8 @@ def process_audio(vector_store, file_name, stats_db):
     dateshort = time.strftime("%Y%m%d-%H%M%S")
     file_meta_name = f"audiotranscript_{dateshort}.txt"
     openai_api_key = st.secrets["openai_api_key"]
-    transcript = _transcribe_audio(openai_api_key, file_name, stats_db)
+    openai_api_base = st.secrets["openai_api_base"]
+    transcript = _transcribe_audio(openai_api_key, file_name, stats_db, openai_api_base)
     file_sha = compute_sha1_from_content(transcript.text.encode("utf-8"))
     ## file size computed from transcript
     file_size = len(transcript.text.encode("utf-8"))
